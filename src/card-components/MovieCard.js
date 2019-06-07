@@ -8,6 +8,7 @@ import hbmc from '../assets/poster-imgs/handsome-boy-modeling-club.png'
 import msts from '../assets/poster-imgs/marus-spinoff-trapped-in-the-sheets.png'
 import tkr from '../assets/poster-imgs/terrance-king-of-the-rats.png'
 import ttm from '../assets/poster-imgs/the-trash-man.png'
+import PropTypes from 'prop-types'
 
 import React, { Component } from 'react';
 import CardFront from './CardFront.js';
@@ -28,16 +29,28 @@ const posterMap = {
 }
 
 export default class MovieCard extends Component {
-
+  
   render() {
+    let movie = this.props.movie
     return (
       <div className="movie-card">
-        {/* which component should receive which props? */}
-        <CardFront />
-        <CardBack />
+        <CardFront url={posterMap[movie.poster]} />
+        <CardBack title={movie.title} rating={movie.IMDBRating} genres={movie.genres}/>
       </div>
     )
   }
 }
 
-// Don't forget your default props!
+MovieCard.defaultProps = {
+  movie: {
+    IMDBRating: 0,
+    poster: 'default',
+    title: 'default',
+    genres: ['default']
+  }
+}
+
+
+MovieCard.propTypes = {
+  movie: PropTypes.object
+}
